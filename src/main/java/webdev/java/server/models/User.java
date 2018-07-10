@@ -1,6 +1,9 @@
-package webdev.models;
+package webdev.java.server.models;
+
+import java.sql.Date;
 
 import javax.persistence.*;
+
 
 @Entity
 public class User {
