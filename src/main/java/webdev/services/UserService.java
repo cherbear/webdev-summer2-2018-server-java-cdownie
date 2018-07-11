@@ -41,6 +41,22 @@ public class UserService {
 		
 	}
 	
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user, HttpSession session) {
+
+		/*
+		 * The login() method uses the findUserByCredentials() method in the user repository
+		 *  to find the user. If the user exists, the login should add the user to the HTTP 
+		 *  session passed in as a parameter. Save the found user in a session variable called "user". 
+		 *  This session variable can be used later by the user profile page to retrieve the information 
+		 *  of the currently logged in user. The login function should return the user object which will 
+		 *  be sent back to the client. The client login controller will use the user object to decide 
+		 *  whether the login was successful or not and whether to navigate to the profile page.
+		 */
+		return user; 
+	}
+
+	
 	
 }
 
