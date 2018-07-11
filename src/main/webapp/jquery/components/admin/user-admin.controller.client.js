@@ -15,6 +15,10 @@
     	 * Binds action icons, such as create, update, select, and delete, 
     	 * to respective event handlers
     	 */
+        userServiceClient
+        .findAllUsers()
+        .then(renderUsers);
+    	
     	}
     
     
@@ -49,13 +53,24 @@
     
     
     
-    function deleteUser() { 
+    function deleteUser(event) { 
     	/*
     	 * handles delete user event when user clicks the cross icon. 
     	 * Reads the user is from the icon id attribute. 
     	 * Uses user service deleteUser() to send a delete request to the server. 
     	 * Updates user list on server response
     	 */
+        console.log(event);
+        var $button = $(event.currentTarget);
+        var id = $button.attr('id');
+
+        userServiceClient
+          .deleteUser(id)
+          .then(function () {
+            userServiceClient
+              .findAllUsers()
+              .then(renderUsers);
+          });	
     	}
     
     
@@ -91,7 +106,49 @@
     	 * populates the table row with the user object properties, 
     	 * adds the table row to the table body
     	 */
-    	}
+    	
+    	console.log(users);
+
+        var tbody = $('tbody');
+        tbody.empty();
+        for(var i=0; i<users.length; i++) {
+          var user = users[i];
+
+          var tr = $('<tr>');
+          var td = $('<td>');
+          td.append(user.username);
+          tr.append(td);
+
+          td = $('<td>');
+          td.append('*******');
+          tr.append(td);
+
+          td = $('<td>');
+          td.append(user.firstName);
+          tr.append(td);
+
+          td = $('<td>');
+          td.append(user.lastName);
+          tr.append(td);
+
+          td = $('<td>');
+          td.append('hello@world.com');
+          tr.append(td);
+
+          td = $('<td>');
+          td.append('Student');
+          tr.append(td);
+
+          td = $('<td>');
+          var deleteBtn = $('<button>DELETE</button>');
+          deleteBtn.click(deleteUser);
+          deleteBtn.attr('id', user.id);
+          td.append(deleteBtn);
+          tr.append(td);
+
+          tr.appendTo(tbody);
+        }
+      }
     
     
 })();
