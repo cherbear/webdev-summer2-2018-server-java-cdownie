@@ -15,7 +15,7 @@
     	 * Binds action icons, such as create, update, select, and delete, 
     	 * to respective event handlers
     	 */
-        userServiceClient
+        userService
         .findAllUsers()
         .then(renderUsers);
     	
@@ -29,6 +29,18 @@
     	 * Uses the user service createUser() function to create the new user. 
     	 * Updates the list of users on server response
     	 */
+    	console.log(event);
+        var $button = $(event.currentTarget);
+        var id = $button.attr('id');
+
+        userService
+          .deleteUser(id)
+          .then(function () {
+            userService
+              .findAllUsers()
+              .then(renderUsers);
+          });
+    	
     	}
     
     
@@ -64,7 +76,7 @@
         var $button = $(event.currentTarget);
         var id = $button.attr('id');
 
-        userServiceClient
+        userService
           .deleteUser(id)
           .then(function () {
             userServiceClient
