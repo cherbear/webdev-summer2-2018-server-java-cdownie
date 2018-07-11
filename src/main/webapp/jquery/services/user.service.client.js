@@ -59,6 +59,10 @@ function UserServiceClient() {
     function register() { ... }
     
     function login() { … }
+    
+    function updateProfile() { ... }
+    
+    function logout() { ... }
 }
 
 

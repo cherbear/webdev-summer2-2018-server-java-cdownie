@@ -56,6 +56,13 @@ public class UserService {
 		return user; 
 	}
 
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User user, HttpSession session) { … }
+
+	
+	@PostMapping("/api/logout")
+	public User login(HttpSession session) { … }
+
 	
 	
 }
