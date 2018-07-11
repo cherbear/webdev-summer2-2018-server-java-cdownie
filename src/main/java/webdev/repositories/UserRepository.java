@@ -1,5 +1,7 @@
 package webdev.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 
 
@@ -12,6 +14,5 @@ import webdev.models.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("SELECT user FROM User user WHERE user.username=:username AND user.password=:password")
 	public User findUserByCredentials(@Param("username") String u, @Param("password") String p);
-	public User findUserByUsername(@Param("username") String u);
-	public User findUserByCredentials(@Param("credential") String c); //could need this to be an int
+	public Optional<User> findUserByUsername(@Param("username") String u);
 }

@@ -17,14 +17,20 @@ public class UserService {
 	
 	@GetMapping("/api/user")	
 	public List<User> findAllUsers() {
-		return userRepository.findAll();
+		return (List<User>) userRepository.findAll();
 	}
 	
-	@GetMapping("/api/user")	// fix mapping
-	public List<User> findUserByUsername() {
-		return userRepository.findUserByUsername();
+	@GetMapping("/api/user/{username}")
+	public Optional<User> findUserByUsername(@PathVariable("username") String username) {
+		String u = username;
+		return userRepository.findUserByUsername(u);
 	}
 	
+	@GetMapping("/api/user/{userId}")
+	public Optional<User> findUserByUserId(@PathVariable("userId") String userId) {
+		int id = Integer.parseInt(userId);
+		return userRepository.findById(id);
+	}
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) {
@@ -57,11 +63,16 @@ public class UserService {
 	}
 
 	@PutMapping("/api/profile")
-	public User updateProfile(@RequestBody User user, HttpSession session) { … }
+	public User updateProfile(@RequestBody User user, HttpSession session) { 
+		return user;
+		
+	}
 
 	
 	@PostMapping("/api/logout")
-	public User login(HttpSession session) { … }
+	public User login(HttpSession session) { 
+		...
+	}
 
 	
 	
