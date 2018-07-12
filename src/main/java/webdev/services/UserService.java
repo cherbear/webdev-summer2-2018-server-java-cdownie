@@ -51,6 +51,11 @@ public class UserService {
 		return currentUser;
 	}
 	
+	@PostMapping("/api/user")
+	public void createUser(@RequestBody User user) {
+		userRepository.save(user);
+	}
+	
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {
 		userRepository.deleteById(id);
@@ -112,6 +117,8 @@ public class UserService {
 			User user = optional.get();
 			user.setFirstName(newUser.getFirstName());
 			user.setLastName(newUser.getLastName());
+			user.setEmail(newUser.getEmail());
+			
 			return userRepository.save(user);
 		}
 		return null;
