@@ -34,6 +34,11 @@ function UserServiceClient() {
     	 * sends a GET request to user Web service. Receives a JSON array of all users
     	 * GET /api/user
     	 */
+        var url = "/api/user";
+        return fetch(url)
+          .then(function (response) {
+            return response.json();
+          });
     	}
     
     
@@ -64,6 +69,11 @@ function UserServiceClient() {
     	 * parameter for user to remove. Receives status
     	 * DELETE /api/user/{userId}
     	 */
+        var url = "/api/user/" + userId;
+
+        return fetch(url, {
+          method: 'delete'
+        })
     }
     
     function renderUsers() {
