@@ -2,23 +2,14 @@
     var $usernameFld, $passwordFld;
     var $removeBtn, $editBtn, $createBtn;
     var $firstNameFld, $lastNameFld;
-    var $userRowTemplate, $tbody;
-    var userService = new AdminUserServiceClient();
+    var $userRowTemplate, $tbody, $roleFld;
+    var userService = new UserServiceClient();
     $(main);
 
     function main() { 
-    	/*
-    	 * executes on document load, 
-    	 * when the browser is done parsing the html page and
-    	 * the dom is ready. Retrieved the dom elements needed later
-    	 * in the controller such as the form elements, action icons, and templates. 
-    	 * Binds action icons, such as create, update, select, and delete, 
-    	 * to respective event handlers
-    	 */
         userService
         .findAllUsers()
         .then(renderUsers);
-    	
     	}
     
     
@@ -29,17 +20,10 @@
     	 * Uses the user service createUser() function to create the new user. 
     	 * Updates the list of users on server response
     	 */
-    	console.log(event);
-        var $button = $(event.currentTarget);
-        var id = $button.attr('id');
-
-        userService
-          .deleteUser(id)
-          .then(function () {
-            userService
-              .findAllUsers()
-              .then(renderUsers);
-          });
+    	userService
+    	.createUser()
+    	.findAllUsers()
+    	.then(renderUsers);
     	
     	}
     
@@ -50,6 +34,10 @@
     	 * Uses user service findAllUsers() to retrieve all the users 
     	 * and passes response to renderUsers
     	 */
+    	
+    	userService
+    	.findAllUsers()
+    	.then(renderUsers);
     	}
     
     
@@ -61,6 +49,12 @@
     	 * Uses user service findUserById() to retrieve user and then 
     	 * updates the form on server response
     	 */
+    	
+    	userService
+    	.findUserById()
+    	.findAllUsers()
+    	.then(renderUsers);
+    	
     	}
     
     
@@ -96,6 +90,12 @@
     	 * uses user service updateUser() to send the new user data to server. 
     	 * Updates user list on server response
     	 */
+    	
+    	userService
+    	.updateUser()
+    	.findAllUsers()
+    	.then(renderUsers);
+    	
     	}
     
     
